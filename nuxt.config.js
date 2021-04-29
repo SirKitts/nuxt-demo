@@ -1,17 +1,16 @@
 export default {
-  // Gitlab
-  router: {
-    base: '/nuxt-demo/',
-  },
-  generate: {
-    dir: 'public',
-  },
-
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  router: {
+    base: '/nuxt-demo/',
+  },
+
+  generate: {
+    dir: 'public',
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
