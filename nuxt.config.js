@@ -1,4 +1,12 @@
 export default {
+  // Gitlab
+  router: {
+    base: '/nuxt-demo/',
+  },
+  generate: {
+    dir: 'public',
+  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
