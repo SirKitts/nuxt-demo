@@ -15,9 +15,10 @@ build site:
 unit test:
   stage: test
   script:
-    - npm run unit
+    - npm run test
 
 deploy:
+  stage: deploy
   script:
     - npm run generate
   artifacts:
