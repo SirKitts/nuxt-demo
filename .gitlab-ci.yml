@@ -24,6 +24,6 @@ deploy:
   artifacts:
     expire_in: 4 week
     paths:
-      - public
+      - dist
   only:
     - master

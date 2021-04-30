@@ -4,6 +4,7 @@ export default {
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  /*
   router: {
     base: '/nuxt-demo/',
   },
@@ -11,6 +12,7 @@ export default {
   generate: {
     dir: 'public',
   },
+  */
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
