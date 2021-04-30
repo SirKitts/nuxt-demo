@@ -1,29 +1,53 @@
 image: node
 
 before_script:
-  - npm install
+  - npm ci
 
 cache:
+  untracked: true
   paths:
     - node_modules/
 
-build site:
-  stage: build
+stages:
+  - setup
+  - test
+  - build
+  - deploy
+
+setup:
+  stage: setup
   script:
     - npm run build
+  only:
+    - master
 
-unit test:
+test:
   stage: test
   script:
     - npm run test
+  only:
+    - master
 
-deploy:
-  stage: deploy
+build:
+  stage: build
   script:
     - npm run generate
   artifacts:
     expire_in: 4 week
     paths:
       - dist
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  environment:
+    name: production
+    url: https://nuxt-demo-netlify.netlify.app
+  script:
+    - npm i -g netlify-cli
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  dependencies:
+    - build
   only:
     - master
