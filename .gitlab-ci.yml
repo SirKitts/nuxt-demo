@@ -36,7 +36,7 @@ build:
     paths:
       - dist
 
-staging:
+deploy:
   stage: deploy
   environment:
     name: staging
