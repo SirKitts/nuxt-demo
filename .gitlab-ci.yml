@@ -12,7 +12,7 @@ stages:
   - setup
   - test
   - build
-  - deploy
+  - deploy_production
 
 setup:
   stage: setup
