@@ -36,22 +36,7 @@ build:
     paths:
       - dist
 
-deploy_review:
-  stage: deploy
-  script:
-    - echo "Deploy a review app"
-    - echo $CI_ENVIRONMENT_SLUG
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    url: https://staging-nuxt-demo-netlify.netlify.app
-  dependencies:
-    - build
-  only:
-    - branches
-  except:
-    - master
-
-deploy_staging:
+staging:
   stage: deploy
   environment:
     name: staging
@@ -59,24 +44,9 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
   only:
     - develop
-  when: manual
-
-deploy_production:
-  stage: deploy
-  environment:
-    name: production
-    url: https://nuxt-demo-netlify.netlify.app
-  script:
-    - echo "Deploy to production server"
-    - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-  dependencies:
-    - build
-  only:
-    - master
   when: manual
