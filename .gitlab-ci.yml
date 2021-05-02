@@ -37,16 +37,16 @@ build:
       - dist
 
 deploy:
-  stage: deploy
+  stage: deploy_production
   environment:
-    name: staging
-    url: https://staging-nuxt-demo-netlify.netlify.app
+    name: production
+    url: https://nuxt-demo-netlify.netlify.app
   script:
-    - echo "Deploy to staging server"
+    - echo "Deploy to production server"
     - npm i -g netlify-cli
-    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
   only:
-    - develop
+    - master
   when: manual
