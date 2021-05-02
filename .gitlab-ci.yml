@@ -36,8 +36,8 @@ build:
     paths:
       - dist
 
-deploy_production:
-  stage: deploy
+deploy:
+  stage: deploy_production
   environment:
     name: production
     url: https://nuxt-demo-netlify.netlify.app
