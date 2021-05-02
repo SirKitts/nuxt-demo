@@ -40,7 +40,7 @@ build:
 deploy_staging:
   stage: deploy_staging
   environment:
-    name: production
+    name: staging
     url: https://staging-nuxt-demo-netlify.netlify.app
   script:
     - echo "Deploy to staging server"
