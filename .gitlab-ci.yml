@@ -12,42 +12,57 @@ stages:
   - setup
   - test
   - build
-  - deploy
+  - deploy_staging
+  - deploy_production
 
 setup:
   stage: setup
   script:
+    - echo "Setting up the build"
     - npm run build
-  only:
-    - master
 
 test:
   stage: test
   script:
+    - echo "Doing some test"
     - npm run test
-  only:
-    - master
 
 build:
   stage: build
   script:
+    - echo "Building artifacts"
     - npm run generate
   artifacts:
     expire_in: 4 week
     paths:
       - dist
-  only:
-    - master
 
-deploy:
-  stage: deploy
+deploy_staging:
+  stage: deploy_staging
+  environment:
+    name: staging
+    url: https://staging-nuxt-demo-netlify.netlify.app
+  script:
+    - echo "Deploy to staging server"
+    - npm i -g netlify-cli
+    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  dependencies:
+    - build
+  only:
+    - develop
+  when: manual
+
+deploy_production:
+  stage: deploy_production
   environment:
     name: production
     url: https://nuxt-demo-netlify.netlify.app
   script:
+    - echo "Deploy to production server"
     - npm i -g netlify-cli
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
   only:
     - master
+  when: manual
