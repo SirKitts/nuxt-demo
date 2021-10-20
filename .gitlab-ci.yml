@@ -7,6 +7,7 @@ stages:
   - setup
   - test
   - build
+  - staging
 
 setup:
   stage: setup
@@ -29,5 +30,19 @@ build:
     expire_in: 1 week
     paths:
       - dist
+
+staging:
+  stage: staging
+  environment:
+    name: staging
+    url: https://staging-nuxt-demo-netlify.netlify.app
+  script:
+    - echo "Deploy to staging server"
+    - npm i -g netlify-cli
+    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --staging
+  dependencies:
+    - build
+  only:
+    - develop
 
 
