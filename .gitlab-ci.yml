@@ -6,6 +6,7 @@ before_script:
 stages:
   - setup
   - test
+  - build
 
 setup:
   stage: setup
@@ -18,4 +19,15 @@ test:
   script:
     - echo "Doing some test"
     - npm run test
+
+build:
+  stage: build
+  script:
+    - echo "Building artifacts"
+    - npm run generate
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+
 
