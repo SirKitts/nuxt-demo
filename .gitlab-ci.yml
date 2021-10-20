@@ -39,7 +39,7 @@ staging:
   script:
     - echo "Deploy to staging server"
     - npm i -g netlify-cli
-    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --staging
+    - netlify deploy --site $STAGING_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
   only:
