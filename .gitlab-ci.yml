@@ -3,66 +3,11 @@ image: node
 before_script:
   - npm install
 
-cache:
-  untracked: true
-  paths:
-    - node_modules/
-
 stages:
   - setup
-  - test
-  - build
-  - deploy_staging
-  - deploy_production
 
 setup:
   stage: setup
   script:
     - echo "Setting up the build"
     - npm run build
-
-test:
-  stage: test
-  script:
-    - echo "Doing some test"
-    - npm run test
-
-build:
-  stage: build
-  script:
-    - echo "Building artifacts"
-    - npm run generate
-  artifacts:
-    expire_in: 4 week
-    paths:
-      - dist
-
-deploy_staging:
-  stage: deploy_staging
-  environment:
-    name: staging
-    url: https://staging-nuxt-demo-netlify.netlify.app
-  script:
-    - echo "Deploy to staging server"
-    - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-  dependencies:
-    - build
-  only:
-    - develop
-  when: manual
-
-deploy_production:
-  stage: deploy_production
-  environment:
-    name: production
-    url: https://nuxt-demo-netlify.netlify.app
-  script:
-    - echo "Deploy to production server"
-    - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-  dependencies:
-    - build
-  only:
-    - master
-  when: manual
