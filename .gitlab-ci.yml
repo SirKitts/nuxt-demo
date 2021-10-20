@@ -5,9 +5,17 @@ before_script:
 
 stages:
   - setup
+  - test
 
 setup:
   stage: setup
   script:
     - echo "Setting up the build"
     - npm run build
+
+test:
+  stage: test
+  script:
+    - echo "Doing some test"
+    - npm run test
+
