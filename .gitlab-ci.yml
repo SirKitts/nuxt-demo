@@ -3,11 +3,6 @@ image: node:latest
 before_script:
   - npm install
 
-cache:
-  untracked: true
-  paths:
-    - node_modules/
-
 stages:
   - setup
   - test
@@ -26,7 +21,7 @@ test:
   stage: test
   script:
     - echo "Doing some test"
-    - npm run test:unit
+    - npm run test
   only:
     - master
 
@@ -55,4 +50,3 @@ production:
     - build
   only:
     - master
-  when: manual
