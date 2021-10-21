@@ -37,7 +37,7 @@ build:
   only:
     - master
 
-production:
+deploy:
   stage: deploy
   environment:
     name: production
@@ -50,3 +50,4 @@ production:
     - build
   only:
     - master
+  when: manual
