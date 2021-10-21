@@ -38,10 +38,8 @@ staging:
     url: https://staging-nuxt-demo-netlify.netlify.app
   script:
     - echo "Deploy to staging server"
-    - npm i -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-  dependencies:
-    - build
+    - npm run build
+    - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   only:
     - develop
 
