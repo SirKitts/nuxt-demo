@@ -51,5 +51,3 @@ deploy:
   only:
     - master
   when: manual
-
-
