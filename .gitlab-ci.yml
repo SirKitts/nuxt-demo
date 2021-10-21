@@ -1,4 +1,4 @@
-image: node
+image: node:latest
 
 before_script:
   - npm install
@@ -12,20 +12,23 @@ stages:
   - setup
   - test
   - build
-  - deploy_staging
-  - deploy_production
+  - deploy
 
 setup:
   stage: setup
   script:
     - echo "Setting up the build"
-    - npm run build
+    - npm ci
+  only:
+    - master
 
 test:
   stage: test
   script:
     - echo "Doing some test"
-    - npm run test
+    - npm run test:unit
+  only:
+    - master
 
 build:
   stage: build
@@ -36,9 +39,11 @@ build:
     expire_in: 4 week
     paths:
       - dist
+  only:
+    - master
 
-deploy_production:
-  stage: deploy_production
+production:
+  stage: deploy
   environment:
     name: production
     url: https://nuxt-demo-netlify.netlify.app
