@@ -1,19 +1,19 @@
 image: node:latest
 
 before_script:
-  - npm install
+  - yarn
 
 stages:
-  - setup
-  - test
   - build
+  - test
+  - generate
   - deploy
 
 setup:
-  stage: setup
+  stage: build
   script:
     - echo "Setting up the build"
-    - npm ci
+    - yarn build
   only:
     - master
 
@@ -21,15 +21,15 @@ test:
   stage: test
   script:
     - echo "Doing some test"
-    - npm run test
+    - yarn test
   only:
     - master
 
 build:
-  stage: build
+  stage: generate
   script:
-    - echo "Building artifacts"
-    - npm run generate
+    - echo "Generate artifacts"
+    - yarn generate
   artifacts:
     expire_in: 4 week
     paths:
@@ -41,10 +41,10 @@ deploy:
   stage: deploy
   environment:
     name: production
-    url: https://nuxt-demo-netlify.netlify.app
+    url: https://hubad-na-balita.netlify.app
   script:
     - echo "Deploy to production server"
-    - npm i -g netlify-cli
+    - yarn -g netlify-cli
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
