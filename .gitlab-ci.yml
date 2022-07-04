@@ -9,7 +9,7 @@ stages:
   - generate
   - deploy
 
-setup:
+build:
   stage: build
   script:
     - echo "Setting up the build"
@@ -25,7 +25,7 @@ test:
   only:
     - master
 
-build:
+generate:
   stage: generate
   script:
     - echo "Generate artifacts"
