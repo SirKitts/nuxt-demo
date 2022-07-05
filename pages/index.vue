@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <Logo />
-      <h1 class="title">Wat Dah!</h1>
+      <h1 class="title">Wat Dah?</h1>
     </div>
   </div>
 </template>
