@@ -5,8 +5,8 @@ before_script:
 
 stages:
   - setup
-  - build
   - test
+  - build
   - generate
   - deploy
 
@@ -18,19 +18,19 @@ setup:
   only:
     - master
 
-build:
-  stage: build
-  script:
-    - echo "Building ..."
-    - npm run build
-  only:
-    - master
-
 test:
   stage: test
   script:
     - echo "Doing some test ..."
     - npm run test
+  only:
+    - master
+
+build:
+  stage: build
+  script:
+    - echo "Building ..."
+    - npm run build
   only:
     - master
 
