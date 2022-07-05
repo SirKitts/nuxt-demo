@@ -1,53 +1,15 @@
-image: node:latest
+image: node:16.15.1
 
 before_script:
   - yarn
 
 stages:
   - build
-  - test
-  - generate
-  - deploy
 
-setup:
+build:
   stage: build
   script:
     - echo "Setting up the build"
     - yarn build
   only:
     - master
-
-test:
-  stage: test
-  script:
-    - echo "Doing some test"
-    - yarn test
-  only:
-    - master
-
-build:
-  stage: generate
-  script:
-    - echo "Generate artifacts"
-    - yarn generate
-  artifacts:
-    expire_in: 4 week
-    paths:
-      - dist
-  only:
-    - master
-
-deploy:
-  stage: deploy
-  environment:
-    name: production
-    url: https://hubad-na-balita.netlify.app
-  script:
-    - echo "Deploy to production server"
-    - yarn -g netlify-cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-  dependencies:
-    - build
-  only:
-    - master
-  when: manual
