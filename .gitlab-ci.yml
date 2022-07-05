@@ -59,4 +59,3 @@ deploy:
     - build
   only:
     - master
-  when: manual
