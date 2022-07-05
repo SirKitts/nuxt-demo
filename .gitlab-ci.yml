@@ -6,6 +6,7 @@ before_script:
 stages:
   - build
   - test
+  - generate
 
 build:
   stage: build
@@ -20,5 +21,17 @@ test:
   script:
     - echo "Doing some test"
     - yarn test
+  only:
+    - master
+
+generate:
+  stage: generate
+  script:
+    - echo "Generate artifacts"
+    - yarn generate
+  artifacts:
+    expire_in: 4 week
+    paths:
+      - dist
   only:
     - master
