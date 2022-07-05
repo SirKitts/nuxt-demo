@@ -5,11 +5,20 @@ before_script:
 
 stages:
   - build
+  - test
 
 build:
   stage: build
   script:
     - echo "Setting up the build"
     - yarn build
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - echo "Doing some test"
+    - yarn test
   only:
     - master
