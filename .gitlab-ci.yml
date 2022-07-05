@@ -2,19 +2,24 @@ image: node:16.15.1
 
 before_script:
   - npm install
+  - npm ci
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
 
 stages:
   - setup
   - test
   - build
-  - generate
   - deploy
 
 setup:
   stage: setup
   script:
-    - echo "Setting up..."
-    - npm ci
+    - echo "Setting up build ..."
+    - npm run build
   only:
     - master
 
@@ -29,15 +34,7 @@ test:
 build:
   stage: build
   script:
-    - echo "Building ..."
-    - npm run build
-  only:
-    - master
-
-generate:
-  stage: generate
-  script:
-    - echo "Generate artifact ..."
+    - echo "Building artifacts ..."
     - npm run generate
   artifacts:
     expire_in: 4 week
@@ -53,9 +50,10 @@ deploy:
     url: https://hubad-na-balita.netlify.app
   script:
     - echo "Deploy to production server"
-    - npm install netlify-cli -g
+    - npm i -g netlify-cli
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
   dependencies:
     - build
   only:
     - master
+  when: manual
