@@ -7,6 +7,7 @@ stages:
   - build
   - test
   - generate
+  - deploy
 
 build:
   stage: build
@@ -33,5 +34,19 @@ generate:
     expire_in: 4 week
     paths:
       - dist
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  environment:
+    name: production
+    url: https://hubad-na-balita.netlify.app
+  script:
+    - echo "Deploy to production server"
+    - yarn -g netlify-cli
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+  dependencies:
+    - build
   only:
     - master
